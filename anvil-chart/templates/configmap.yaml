@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: anvil-config
+  namespace: {{ .Values.namespace }}
+data:
+  ANVIL_PORT: "{{ .Values.anvil.port }}"
+  ANVIL_CHAIN_ID: "{{ .Values.anvil.chainId }}"
+  ANVIL_BLOCK_TIME: "{{ .Values.anvil.blockTime }}"
+  ANVIL_HOST: "{{ .Values.anvil.host }}"

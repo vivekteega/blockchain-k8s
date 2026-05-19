@@ -1,0 +1,25 @@
+anvil:
+  chainId: "31337"
+  port: "8545"
+  host: "0.0.0.0"
+  blockTime: "12"
+
+image:
+  repository: ghcr.io/foundry-rs/foundry
+  tag: latest
+
+service:
+  type: LoadBalancer
+  port: 8545
+
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "250m"
+  limits:
+    memory: "512Mi"
+    cpu: "500m"
+
+namespace: blockchain
+
+namespaceCreate: true

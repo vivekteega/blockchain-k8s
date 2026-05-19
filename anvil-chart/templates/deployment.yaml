@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: anvil
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: anvil
+  template:
+    metadata:
+      labels:
+        app: anvil
+    spec:
+      containers:
+      - name: anvil
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        command: ["anvil"]
+        args:
+        - "--host"
+        - "{{ .Values.anvil.host }}"
+        - "--port"
+        - "{{ .Values.anvil.port }}"
+        - "--chain-id"
+        - "{{ .Values.anvil.chainId }}"
+        - "--block-time"
+        - "{{ .Values.anvil.blockTime }}"
+        ports:
+        - containerPort: {{ .Values.anvil.port | int }}
+        env:
+        - name: PRIVATE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: anvil-keys
+              key: private-key
+        - name: MNEMONIC
+          valueFrom:
+            secretKeyRef:
+              name: anvil-keys
+              key: mnemonic
+        resources:
+          requests:
+            memory: {{ .Values.resources.requests.memory }}
+            cpu: {{ .Values.resources.requests.cpu }}
+          limits:
+            memory: {{ .Values.resources.limits.memory }}
+            cpu: {{ .Values.resources.limits.cpu }}
+        livenessProbe:
+          tcpSocket:
+            port: {{ .Values.anvil.port | int }}
+          initialDelaySeconds: 10
+          periodSeconds: 15
+        readinessProbe:
+          tcpSocket:
+            port: {{ .Values.anvil.port | int }}
+          initialDelaySeconds: 5
+          periodSeconds: 10
