@@ -64,3 +64,10 @@ spec:
             port: 8545
           initialDelaySeconds: 10
           periodSeconds: 15
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
