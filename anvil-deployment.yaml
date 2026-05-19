@@ -71,3 +71,8 @@ spec:
           limits:
             memory: "512Mi"
             cpu: "500m"
+        readinessProbe:
+          tcpSocket:
+            port: 8545
+          initialDelaySeconds: 5
+          periodSeconds: 10
