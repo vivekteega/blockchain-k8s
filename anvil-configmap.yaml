@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: anvil-config
+  namespace: blockchain
+data:
+  ANVIL_PORT: "8545"
+  ANVIL_CHAIN_ID: "31337"
+  ANVIL_BLOCK_TIME: "12"
+  ANVIL_HOST: "0.0.0.0"

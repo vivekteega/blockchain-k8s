@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: anvil
-  namespace: default
+  namespace: blockchain
 spec:
   replicas: 1
   selector:
@@ -19,13 +19,46 @@ spec:
         command: ["anvil"]
         args:
         - "--host"
-        - "0.0.0.0"
+        - "$(ANVIL_HOST)"
         - "--port"
-        - "8545"
+        - "$(ANVIL_PORT)"
         - "--chain-id"
-        - "31337"
+        - "$(ANVIL_CHAIN_ID)"
+        - "--block-time"
+        - "$(ANVIL_BLOCK_TIME)"
         ports:
         - containerPort: 8545
+        env:
+        - name: ANVIL_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: anvil-config
+              key: ANVIL_HOST
+        - name: ANVIL_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: anvil-config
+              key: ANVIL_PORT
+        - name: ANVIL_CHAIN_ID
+          valueFrom:
+            configMapKeyRef:
+              name: anvil-config
+              key: ANVIL_CHAIN_ID
+        - name: ANVIL_BLOCK_TIME
+          valueFrom:
+            configMapKeyRef:
+              name: anvil-config
+              key: ANVIL_BLOCK_TIME
+        - name: PRIVATE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: anvil-keys
+              key: private-key
+        - name: MNEMONIC
+          valueFrom:
+            secretKeyRef:
+              name: anvil-keys
+              key: mnemonic
         livenessProbe:
           tcpSocket:
             port: 8545
