@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: anvil
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/vivekteega/blockchain-k8s
+    targetRevision: HEAD
+    path: anvil-chart
+    helm:
+      valueFiles:
+      - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: blockchain
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true

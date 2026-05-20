@@ -23,3 +23,5 @@ resources:
 namespace: blockchain
 
 namespaceCreate: true
+
+replicaCount: 3
