@@ -1,5 +1,7 @@
 # Blockchain Kubernetes Infrastructure
 
+> Built as part of a structured 4-week blockchain infrastructure portfolio targeting Platform/Infrastructure Engineer roles at blockchain protocols.
+
 Kubernetes-based blockchain infrastructure for running an Anvil Ethereum development node with Helm and ArgoCD. The repository demonstrates a GitOps deployment model, namespace isolation, externalized runtime configuration, manual secret handling, RBAC, pod health checks, and resource controls.
 
 This project is intentionally scoped as local blockchain infrastructure: it runs a deterministic Anvil node for development and testing while using production-style Kubernetes workflows that can evolve toward real execution and consensus clients.
@@ -11,7 +13,7 @@ The stack deploys an Anvil node from the Foundry image into a dedicated `blockch
 Key capabilities:
 
 - Anvil Ethereum development node running on Kubernetes.
-- Local cluster workflow using `vind` vCluster in Docker.
+- Local cluster workflow using vCluster in Docker.
 - Dedicated `blockchain` namespace for isolation.
 - Helm chart with configurable values for chain ID, port, host, block time, replicas, image, service type, and resources.
 - ConfigMap-driven node configuration.
@@ -35,7 +37,7 @@ Key capabilities:
                         | syncs Helm chart
                         v
         +-----------------------------------+
-        | Kubernetes cluster via vind       |
+        | Kubernetes cluster via vCluster   |
         |                                   |
         |  namespace: blockchain            |
         |                                   |
@@ -102,7 +104,7 @@ Key capabilities:
 
 ## Prerequisites
 
-- `vind` installed and running a local Kubernetes environment.
+- vCluster CLI installed and configured for local Kubernetes environments.
 - Helm 3.
 - `kubectl` configured for the target cluster.
 - ArgoCD installed in the `argocd` namespace.
@@ -114,7 +116,7 @@ Key capabilities:
 Create or select the local Kubernetes environment:
 
 ```bash
-vind up
+vcluster create blockchain-dev
 kubectl cluster-info
 ```
 
@@ -351,3 +353,8 @@ The next phase is to move from a local Anvil development node toward production-
 ## Status
 
 This repository represents Week 1 of a blockchain infrastructure portfolio project: local Kubernetes deployment, Helm packaging, GitOps delivery, secure secret handling, health checks, RBAC, and resource controls for an Anvil-based Ethereum development node.
+
+## Contact
+
+- GitHub: [github.com/vivekteega](https://github.com/vivekteega)
+- LinkedIn: [linkedin.com/in/vivekteega](https://www.linkedin.com/in/vivekteega)
