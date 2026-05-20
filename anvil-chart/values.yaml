@@ -24,4 +24,4 @@ namespace: blockchain
 
 namespaceCreate: true
 
-replicaCount: 3
+replicaCount: 1
